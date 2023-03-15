@@ -2,7 +2,7 @@
 
 namespace devavi\leveltwo\Blog\Exceptions;
 
-class AppException extends \Exception
+class CommentNotFoundException extends AppException
 {
 
 }

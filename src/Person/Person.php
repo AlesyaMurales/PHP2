@@ -1,5 +1,5 @@
 <?php
-namespace GeekBrains\LevelTwo\Person;
+namespace devavi\leveltwo\Person;
 
 use \DateTimeImmutable;
 

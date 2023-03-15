@@ -1,9 +1,9 @@
 <?php
 
-namespace GeekBrains\LevelTwo\Blog\Repositories\UsersRepository;
+namespace devavi\leveltwo\Blog\Repositories\UsersRepository;
 
-use GeekBrains\LevelTwo\Blog\Exceptions\UserNotFoundException;
-use GeekBrains\LevelTwo\Blog\User;
+use devavi\leveltwo\Blog\Exceptions\UserNotFoundException;
+use devavi\leveltwo\Blog\User;
 
 class InMemoryUsersRepository implements UsersRepositoryInterface
 {

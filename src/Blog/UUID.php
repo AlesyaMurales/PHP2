@@ -1,8 +1,8 @@
 <?php
 
-namespace GeekBrains\LevelTwo\Blog;
+namespace devavi\leveltwo\Blog;
 
-use GeekBrains\LevelTwo\Blog\Exceptions\InvalidArgumentException;
+use devavi\leveltwo\Blog\Exceptions\InvalidArgumentException;
 
 class UUID
 {
@@ -39,5 +39,10 @@ class UUID
     public function __toString(): string
     {
         return $this->uuidString;
+    }
+
+    public static function uuidFromString(string $uuid): self
+    {
+        return new self($uuid);
     }
 }

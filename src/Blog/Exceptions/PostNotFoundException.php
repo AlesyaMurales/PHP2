@@ -2,7 +2,7 @@
 
 namespace devavi\leveltwo\Blog\Exceptions;
 
-class AppException extends \Exception
+class PostNotFoundException extends AppException
 {
 
 }

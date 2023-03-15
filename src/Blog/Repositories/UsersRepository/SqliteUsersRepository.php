@@ -1,12 +1,12 @@
 <?php
 
-namespace GeekBrains\LevelTwo\Blog\Repositories\UsersRepository;
+namespace devavi\leveltwo\Blog\Repositories\UsersRepository;
 
-use GeekBrains\LevelTwo\Blog\Exceptions\InvalidArgumentException;
-use GeekBrains\LevelTwo\Blog\Exceptions\UserNotFoundException;
-use GeekBrains\LevelTwo\Blog\User;
-use GeekBrains\LevelTwo\Blog\UUID;
-use GeekBrains\LevelTwo\Person\Name;
+use devavi\leveltwo\Blog\Exceptions\InvalidArgumentException;
+use devavi\leveltwo\Blog\Exceptions\UserNotFoundException;
+use devavi\leveltwo\Blog\User;
+use devavi\leveltwo\Blog\UUID;
+use devavi\leveltwo\Person\Name;
 use \PDO;
 use \PDOStatement;
 
@@ -53,6 +53,13 @@ VALUES (:first_name, :last_name, :uuid, :username)'
 
         $statement->execute([(string)$uuid]);
         $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+        // Бросаем исключение, если пользователь не найден
+        if ($result === false) {
+            throw new UserNotFoundException(
+                "Cannot get user: $uuid"
+            );
+        }
         return $this->getUser($statement, $uuid);
     }
 

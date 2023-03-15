@@ -1,85 +1,44 @@
 <?php
+namespace devavi\leveltwo\Blog;
 
-namespace GeekBrains\LevelTwo\Blog;
+class Comment {
+    
+    private UUID $uuid;
+    private UUID $post_uuid;
+    private UUID $author_uuid;
+    private string $text;
 
-class Comment
-{
-
-    public function __construct(
-        private int $id,
-        private User $user,
-        private Post $post,
-        private string $text
-    )
+    public function __construct(UUID $uuid, UUID $post_uuid, UUID $author_uuid, string $text)
     {
-    }
-
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return User
-     */
-    public function getUser(): User
-    {
-        return $this->user;
-    }
-
-    /**
-     * @param User $user
-     */
-    public function setUser(User $user): void
-    {
-        $this->user = $user;
-    }
-
-    /**
-     * @return Post
-     */
-    public function getPost(): Post
-    {
-        return $this->post;
-    }
-
-    /**
-     * @param Post $post
-     */
-    public function setPost(Post $post): void
-    {
-        $this->post = $post;
-    }
-
-    /**
-     * @return string
-     */
-    public function getText(): string
-    {
-        return $this->text;
-    }
-
-    /**
-     * @param string $text
-     */
-    public function setText(string $text): void
-    {
+        $this->uuid = $uuid;
+        $this->post_uuid = $post_uuid;
+        $this->author_uuid = $author_uuid;
         $this->text = $text;
     }
 
-    public function __toString() {
-        return $this->user . " пишет Коммент " . $this->text;
+    public function __toString(): string
+    {
+        return "Юзер $this->author_uuid написал коментарий к посту номер $this->post_uuid с номером $this->uuid и текстом: $this->text" . PHP_EOL;
+    }
+
+    public function uuid(): UUID
+    {
+        return $this->uuid;
+    }
+
+    public function post_uuid(): UUID
+    {
+        return $this->post_uuid;
+    }
+
+    public function author_uuid(): UUID
+    {
+        return $this->author_uuid;
+    }
+    
+    public function text(): string
+    {
+        return $this->text;
     }
 
 }

@@ -1,7 +1,7 @@
 <?php
-namespace GeekBrains\LevelTwo\Blog;
+namespace devavi\leveltwo\Blog;
 
-use GeekBrains\LevelTwo\Person\Name;
+use devavi\leveltwo\Person\Name;
 
 class User
 {

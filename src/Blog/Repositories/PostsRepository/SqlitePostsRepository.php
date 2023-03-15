@@ -1,11 +1,15 @@
 <?php
 
-namespace GeekBrains\LevelTwo\Blog\Repositories\PostsRepository;
+namespace devavi\leveltwo\Blog\Repositories\PostsRepository;
 
-use GeekBrains\LevelTwo\Blog\Post;
-use GeekBrains\LevelTwo\Blog\UUID;
+use devavi\leveltwo\Blog\Exceptions\InvalidArgumentException;
+use devavi\leveltwo\Blog\Exceptions\PostNotFoundException;
+use devavi\leveltwo\Blog\Post;
+use devavi\leveltwo\Blog\UUID;
+use \PDO;
+use \PDOStatement;
 
-class SqlitePostsRepository implements PostRepositoryInterface
+class SqlitePostsRepository implements PostsRepositoryInterface
 {
     private PDO $connection;
 
@@ -14,44 +18,55 @@ class SqlitePostsRepository implements PostRepositoryInterface
         $this->connection = $connection;
     }
 
+
     public function save(Post $post): void
     {
+
         $statement = $this->connection->prepare(
             'INSERT INTO posts (uuid, author_uuid, title, text) 
             VALUES (:uuid, :author_uuid, :title, :text)'
 
         );
-
         $statement->execute([
-            ':uuid' => $post->getUuid(),
-            ':author_uuid' => $post->getUser()->uuid(),
-            ':title' => $post->getTitle(),
-            ':text' => $post->getText(),
+            ':uuid' => (string)$post->uuid(),
+            ':author_uuid' => (string)$post->author_uuid(),
+            ':title' => $post->title(),
+            ':text' => $post->text(),
         ]);
+
     }
+
     public function get(UUID $uuid): Post
     {
-
         $statement = $this->connection->prepare(
-            'SELECT * FROM posts WHERE uuid = :uuid'
+            'SELECT * FROM posts WHERE uuid = ?'
         );
 
-        $statement->execute([
-            ':uuid'=> (string)$uuid
-        ]);
-        
-        return $this->getPost($statement, $uuid); 
+        $statement->execute([(string)$uuid]);
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
 
-    }
-    private function getPost(PDOStatement $statement, string $postUuId): Post 
-{
-    $result = $statement->fetch(\PDO::FETCH_ASSOC);
         if ($result === false) {
-            throw new UserNotFoundException(
-                "Cannot find user: $errorString"
+            throw new PostNotFoundException(
+                "Cannot get post: $uuid"
             );
         }
-    return $post;
-}
-}
+        return $this->getPost($statement, $uuid);
+    }
 
+    private function getPost(PDOStatement $statement, string $errorString): Post
+    {
+        $result = $statement->fetch(\PDO::FETCH_ASSOC);
+        if ($result === false) {
+            throw new PostNotFoundException(
+                "Cannot find post: $errorString"
+            );
+        }
+
+        return new Post(
+            new UUID($result['uuid']),
+            new UUID($result['author_uuid']),
+            $result['title'],
+            $result['text']
+        );
+    }
+}

@@ -1,20 +1,17 @@
 {
-    "name": "geekbrains/leveltwo",
+    "name": "devavi/leveltwo",
     "autoload": {
         "psr-4": {
-            "GeekBrains\\LevelTwo\\": "src/"
+            "devavi\\leveltwo\\": "src/"
         }
     },
     "authors": [
         {
-            "name": "Ember",
-            "email": "evebay@mail.ru"
+            "name": "devavi"
         }
     ],
     "require": {
         "fakerphp/faker": "^1.20",
-        "roave/security-advisories": "dev-latest",
-      "ext-pdo": "*",
         "symfony/polyfill-uuid": "^1.26"
     }
 }

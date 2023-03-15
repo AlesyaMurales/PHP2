@@ -1,94 +1,44 @@
 <?php
+namespace devavi\leveltwo\Blog;
 
-namespace GeekBrains\LevelTwo\Blog;
+class Post {
+    
+    private UUID $uuid;
+    private UUID $author_uuid;
+    private string $title;
+    private string $text;
 
-
-class Post
-{
-
-
-    public function __construct(
-            private UUID $uuid,
-            private User $user,
-            private string $title,
-            private string $text,
-    )
+    public function __construct(UUID $uuid, UUID $author_uuid, string $title, string $text)
     {
+        $this->uuid = $uuid;
+        $this->author_uuid = $author_uuid;
+        $this->title = $title;
+        $this->text = $text;
     }
-public function getUuid(): UUID
+
+    public function __toString(): string
+    {
+        return "Юзер $this->author_uuid написал пост номер $this->uuid с заголовком: $this->title и текстом: $this->text" . PHP_EOL;
+    }
+
+    public function uuid(): UUID
     {
         return $this->uuid;
     }
 
-    public function setUuid(UUID $uuid): void
+    public function author_uuid(): UUID
     {
-        $this->uuid = $uuid;
+        return $this->author_uuid;
     }
 
-    public function getTitle(): string
+    public function title(): string
     {
         return $this->title;
     }
-
-    public function setTitle(string $title): void
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * @return int
-     */
-    public function id(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return User
-     */
-    public function getUser(): User
-    {
-        return $this->user;
-    }
-
-    /**
-     * @param User $user
-     */
-    public function setUser(User $user): void
-    {
-        $this->user = $user;
-    }
-
-
-
-    /**
-     * @return string
-     */
-    public function getText(): string
+    
+    public function text(): string
     {
         return $this->text;
     }
 
-    /**
-     * @param string $text
-     */
-    public function setText(string $text): Post
-    {
-        $this->text = $text;
-        return $this;
-    }
-
-
-    public function __toString()
-    {
-        return $this->user . ' пишет: ' . $this->text  . PHP_EOL;
-    }
 }

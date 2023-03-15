@@ -1,17 +1,17 @@
 <?php
 
-namespace GeekBrains\LevelTwo\Blog\Command;
+namespace devavi\leveltwo\Blog\Command;
 
-use GeekBrains\LevelTwo\Blog\Exceptions\ArgumentsException;
-use GeekBrains\LevelTwo\Blog\Exceptions\CommandException;
-use GeekBrains\LevelTwo\Blog\Exceptions\InvalidArgumentException;
-use GeekBrains\LevelTwo\Blog\Exceptions\UserNotFoundException;
-use GeekBrains\LevelTwo\Blog\Repositories\UsersRepository\UsersRepositoryInterface;
-use GeekBrains\LevelTwo\Blog\User;
-use GeekBrains\LevelTwo\Blog\UUID;
-use GeekBrains\LevelTwo\Person\Name;
+use devavi\leveltwo\Person\Name;
+use devavi\leveltwo\Blog\Exceptions\ArgumentsException;
+use devavi\leveltwo\Blog\Exceptions\CommandException;
+use devavi\leveltwo\Blog\Exceptions\InvalidArgumentException;
+use devavi\leveltwo\Blog\Exceptions\UserNotFoundException;
+use devavi\leveltwo\Blog\Repositories\UsersRepository\UsersRepositoryInterface;
+use devavi\leveltwo\Blog\User;
+use devavi\leveltwo\Blog\UUID;
 
-//php cli.php username=ivan first_name=Ivan last_name=Nikitin
+//php cli.php user username=ivan first_name=Ivan last_name=Nikitin
 
 class CreateUserCommand
 {
@@ -31,7 +31,6 @@ class CreateUserCommand
     public function handle(Arguments $arguments): void
     {
         $username = $arguments->get('username');
-
 // Проверяем, существует ли пользователь в репозитории
         if ($this->userExists($username)) {
 // Бросаем исключение, если пользователь уже существует
@@ -46,6 +45,7 @@ class CreateUserCommand
             $username,
         ));
     }
+
     private function userExists(string $username): bool
     {
         try {
@@ -56,7 +56,4 @@ class CreateUserCommand
         }
         return true;
     }
-
-
-
 }

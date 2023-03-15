@@ -1,6 +1,6 @@
 <?php
 
-namespace GeekBrains\LevelTwo\Person;
+namespace devavi\leveltwo\Person;
 
 class Name
 {
